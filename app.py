@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 import os
+from datetime import datetime
 
 # Setup the Flask app
 app = Flask(__name__)
@@ -26,10 +27,13 @@ def index():
         first_name = request.form['first_name']
         last_name = request.form['last_name']
         email = request.form['email']
-        start_date = request.form['start_date']
+        date_str = request.form['start_date']
+        start_date = datetime.strptime(date_str, '%Y-%m-%d')
         occupation = request.form['occupation']
-        print(
-            f"Entered details: {first_name}, {last_name}, {email}, {start_date} {occupation}")
+        form = Form(first_name=first_name, last_name=last_name,
+                    email=email, start_date=start_date, occupation=occupation)
+        db.session.add(form)
+        db.session.commit()
     return render_template('index.html')
 
 
