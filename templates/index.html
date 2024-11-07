@@ -53,6 +53,17 @@
                 </div>
             </div>
             <button class="btn btn-primary mb-4" type="submit">Sumbit</button>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <div>
+                {% for message in messages %}
+                <div class="alert alert-info" role="alert">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% endwith %}
         </form>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
